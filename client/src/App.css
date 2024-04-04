@@ -1191,6 +1191,21 @@ label form [type='radio'] {
   flex-wrap: wrap;
 }
 
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 60%;
+}
+
+.flex-column-side {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 20%;
+}
+
+
 .flex-wrap {
   flex-wrap: wrap;
 }

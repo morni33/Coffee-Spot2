@@ -12,8 +12,7 @@ const ThoughtForm = () => {
 
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [addThought, { error }] = useMutation
-  (ADD_THOUGHT, {
+  const [addThought, { error }] = useMutation (ADD_THOUGHT, {
     refetchQueries: [
       QUERY_THOUGHTS,
       'getThoughts',
