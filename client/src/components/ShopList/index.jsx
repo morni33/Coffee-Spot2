@@ -26,3 +26,12 @@ function ShopList({ onShopSelect }) { // Add an `onShopSelect` prop for selectin
 }
 
 export default ShopList;
+{
+    shops.map((shop) => (
+        <li key={shop.id}>
+            <button onClick={() => onShopSelect(shop)}>
+                {shop.name}
+            </button>
+        </li>
+    ))
+}
