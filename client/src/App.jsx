@@ -10,8 +10,11 @@ import { setContext } from '@apollo/client/link/context';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import ShopList from './components/ShopList';
-// import CommentBox from './components/CommentBox'; // Uncomment when you have this component
+//import ShopList from './components/ShopList';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login'; // Update the path if necessary
+//import Signup from './pages/Signup'; // Update the path if necessary
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -40,22 +43,16 @@ const client = new ApolloClient({
 function App() {
   const [selectedShop, setSelectedShop] = useState(null);
 
-  const handleShopSelect = (shop) => {
-    setSelectedShop(shop);
-    // Here you might also fetch comments for that shop or perform other actions
-  };
-
   return (
     <ApolloProvider client={client}>
-      <div className="flex-column justify-flex-start min-100-vh">
+      <Router>
         <Header />
-        <div className="container">
-          {/* <Outlet /> Uncomment if you need to use routing */}
-          <ShopList onShopSelect={handleShopSelect} />
-          {/* {selectedShop && <CommentBox shop={selectedShop} />} Uncomment when CommentBox is ready */}
-        </div>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          {/* other routes... */}
+        </Routes>
         <Footer />
-      </div>
+      </Router>
     </ApolloProvider>
   );
 }

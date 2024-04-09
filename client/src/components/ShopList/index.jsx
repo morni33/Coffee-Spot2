@@ -1,5 +1,5 @@
 import React from 'react';
-
+// No additional imports are needed for this component
 // Mock data for the shops
 const shops = [
     { id: 1, name: 'Blackrock Coffee Bar' },
@@ -10,7 +10,7 @@ const shops = [
     // Add more shops here
 ];
 
-function ShopList({ onShopSelect }) { // Add an `onShopSelect` prop for selecting a shop
+function ShopList({ onShopSelect }) {
     return (
         <div>
             <h2>Shop List</h2>
@@ -26,12 +26,3 @@ function ShopList({ onShopSelect }) { // Add an `onShopSelect` prop for selectin
 }
 
 export default ShopList;
-{
-    shops.map((shop) => (
-        <li key={shop.id}>
-            <button onClick={() => onShopSelect(shop)}>
-                {shop.name}
-            </button>
-        </li>
-    ))
-}

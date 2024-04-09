@@ -22,6 +22,11 @@ const typeDefs = `
     createdAt: String
   }
 
+  type Shop {
+    id: ID!
+    name: String!
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -33,6 +38,7 @@ const typeDefs = `
     thoughts(username: String): [Thought]
     thought(thoughtId: ID!): Thought
     me: User
+    shops: [Shop] # Add this line
   }
 
   type Mutation {

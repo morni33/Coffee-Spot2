@@ -1,16 +1,29 @@
 const { User, Thought } = require('../models');
 const { signToken } = require('../utils/auth');
-const { AuthenticationError } = require('apollo-server-express'); // Make sure to import from the right location
+const { AuthenticationError } = require('apollo-server-express');
+
+// Mock data for the shops
+const shops = [
+  { id: 1, name: 'Blackrock Coffee Bar' },
+  { id: 2, name: 'Starbucks' },
+  { id: 3, name: 'Dutch Bros. Coffee' },
+  { id: 4, name: 'Dunkin' },
+  { id: 5, name: 'Bosa Donuts' },
+  // Add more shops here
+];
 
 const resolvers = {
   Query: {
-    // ... (other resolvers)
-
+    // Existing queries
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate('thoughts');
       }
       throw new AuthenticationError('Not logged in');
+    },
+    // Added shops query
+    shops: () => {
+      return shops;
     },
   },
 
@@ -60,9 +73,7 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    // ... (other mutations)
-
-    // Be sure to apply similar try/catch error handling to the rest of your mutations as demonstrated above
+    // Include other mutations as needed
   },
 };
 
