@@ -1,19 +1,30 @@
+import React from 'react';
+import { useQuery, gql } from '@apollo/client';
+
+const GET_SHOPS = gql`
+  query GetShops {
+    shops {
+      id
+      name
+    }
+  }
+`;
+
 const ShopList = ({ clickOnList }) => {
+    const { loading, error, data } = useQuery(GET_SHOPS);
 
-    // const [ setSelectedShop ] = useState(null);
-
-    
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
 
     return (
-        <>
-            <div className="flex-column">
-                <button className="btn" onClick={() => clickOnList('Futuro')}>Futuro</button>
-                <button className="btn" onClick={() => clickOnList('Space Coffee')}>Space Coffee</button>
-                <button className="btn" onClick={() => clickOnList('Lux Central')}>Lux Central</button>
-                <button className="btn" onClick={() => clickOnList('Aftermarket')}>aftermarket</button>
-            </div>
-        </>
-    )
+        <div className="flex-column">
+            {data.shops.map(({ id, name }) => (
+                <button key={id} className="btn" onClick={() => clickOnList(name)}>
+                    {name}
+                </button>
+            ))}
+        </div>
+    );
 };
 
 export default ShopList;

@@ -27,11 +27,17 @@ const typeDefs = `
     user: User
   }
 
+  type Shop {
+    id: ID!
+    name: String!
+  }
+
   type Query {
     users: [User]
     user(username: String!): User
     thoughts(username: String): [Thought]
     thought(thoughtId: ID!): Thought
+    shops: [Shop]
     me: User
   }
 
