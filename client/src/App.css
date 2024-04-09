@@ -1536,6 +1536,21 @@ label form [type='radio'] {
   }
 }
 
+.btn {
+  margin: 2px;
+  padding: 2px;
+  width: 50%;
+  border: solid #065b83 1px;
+  background-color: transparent;
+  font-size: 13px;
+  color: #065b83;
+}
+
+.btn:hover {
+  background-color: #065b83;
+  color: antiquewhite;
+}
+
 /* col-lg */
 @media screen and (min-width: 992px) {
   .col-md-auto {
