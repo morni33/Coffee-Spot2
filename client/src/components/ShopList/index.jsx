@@ -11,20 +11,21 @@ const GET_SHOPS = gql`
 `;
 
 const ShopList = ({ clickOnList }) => {
-    const { loading, error, data } = useQuery(GET_SHOPS);
+  const { loading, error, data } = useQuery(GET_SHOPS);
+  const shops = data?.shops || []
+  console.log(shops)
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-
-    return (
-        <div className="flex-column">
-            {data.shops.map(({ id, name }) => (
-                <button key={id} className="btn" onClick={() => clickOnList(name)}>
-                    {name}
-                </button>
-            ))}
-        </div>
-    );
+  return (
+    <div className="flex-column">
+      {loading ? "" : shops.map(({ id, name }) => (
+        <button key={id} className="btn" onClick={() => clickOnList(name)}>
+          {name}
+        </button>
+      ))}
+    </div>
+  );
 };
 
 export default ShopList;

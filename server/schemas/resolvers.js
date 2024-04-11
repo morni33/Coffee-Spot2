@@ -1,4 +1,4 @@
-const { User, Thought } = require('../models');
+const { User, Comment } = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 
@@ -8,7 +8,7 @@ const resolvers = {
 
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('thoughts');
+        return User.findOne({ _id: context.user._id }).populate('comments');
       }
       throw new AuthenticationError('Not logged in');
     },
@@ -29,14 +29,14 @@ const resolvers = {
   Mutation: {
     // User addition mutation
     addUser: async (parent, { username, email, password }) => {
-      try {
-        const user = await User.create({ username, email, password });
-        const token = signToken(user);
-        return { token, user };
-      } catch (error) {
-        console.error(`Error adding user: ${error.message}`);
-        throw new Error('Error adding user');
-      }
+      //try {
+      const user = await User.create({ username, email, password });
+      const token = signToken(user);
+      return { token, user };
+      //} catch (error) {
+      // console.error(`Error adding user: ${error.message}`);
+      // throw new Error('Error adding user');
+      // }
     },
 
     // User login mutation
@@ -56,23 +56,23 @@ const resolvers = {
     },
 
     // Thought addition mutation
-    addThought: async (parent, { thoughtText }, context) => {
+    addComment: async (parent, { commentText }, context) => {
       if (context.user) {
         try {
-          const thought = await Thought.create({
-            thoughtText,
-            thoughtAuthor: context.user.username,
+          const comment = await Comment.create({
+            commentText,
+            commentAuthor: context.user.username,
           });
 
-          await User.findOneAndUpdate(
+          const user = await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $addToSet: { thoughts: thought._id } }
+            { $addToSet: { comments: comment._id } }
           );
 
-          return thought;
+          return user;
         } catch (error) {
-          console.error(`Error adding thought: ${error.message}`);
-          throw new Error('Error adding thought');
+          console.error(`Error adding comment: ${error.message}`);
+          throw new Error('Error adding comment');
         }
       }
       throw new AuthenticationError('You need to be logged in!');
